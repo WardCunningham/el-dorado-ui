@@ -31,7 +31,11 @@ the database connection string with the GRAPHDBURL environment variable.
 GRAPHDBURL='http://neo4j:neo4j@example.com:7474/' bundler exec rackup -o '0.0.0.0'
 ~~~
 
+## Docker version
+See Dockerfile and `build-docker-image.sh` will build a docker image using community version of Ruby.  We had to upgrade haml version in Gemlock.lock to get things to work.  The `run-with-neo4j.sh` script can run it connected to a local neo4j instance.
+
+We had some issues connecting to Neo4j (400 return code), which may be due to bolt protocol issues or the local neo4j setup.  This requires more investigation
 
 ## License
 
-Copyright [2017] New Relic, Inc.  Licensed under the Apache License, version 2.0 (the "License"); you may not use this file except in compliance with the License.  You may obtain a copy of the License at [apache.org](http://www.apache.org/licenses/LICENSE-2.0). Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, either express or implied. 
+Copyright [2017] New Relic, Inc.  Licensed under the Apache License, version 2.0 (the "License"); you may not use this file except in compliance with the License.  You may obtain a copy of the License at [apache.org](http://www.apache.org/licenses/LICENSE-2.0). Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, either express or implied.
