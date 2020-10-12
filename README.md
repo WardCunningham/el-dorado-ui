@@ -31,10 +31,16 @@ the database connection string with the GRAPHDBURL environment variable.
 GRAPHDBURL='http://neo4j:neo4j@example.com:7474/' bundler exec rackup -o '0.0.0.0'
 ~~~
 
-## Docker version
-See Dockerfile and `build-docker-image.sh` will build a docker image using community version of Ruby.  We had to upgrade haml version in Gemlock.lock to get things to work.  The `run-with-neo4j.sh` script can run it connected to a local neo4j instance.
 
-We had some issues connecting to Neo4j (400 return code), which may be due to bolt protocol issues or the local neo4j setup.  This requires more investigation
+## Docker version
+Use `Dockerfile` and `build-docker-image.sh` to build a docker image.  The `run-with-neo4j.sh` runs it with a connection to a local neo4j instance.
+
+To run a local neo4j database, you can use docker:
+```
+docker run --name neo4j --rm -d --publish=7474:7474 --publish=7687:7687 -e NEO4J_AUTH=neo4j/neo4j1234 --volume=$HOME/neo4j/data:/data neo4j
+```
+
+We have upgraded to ruby 2.7.2 and latest neo4j-core, which required some changes in `el_dorado.rb` to use the `GRAPHDBURL` environment variable value via `Neo4j::Core::CypherSession` rather than `Neo4j::Session.open()`.   Future options could be to use other protocls (like bolt) - see https://github.com/neo4jrb/neo4j-core/tree/9.0.x
 
 ## License
 

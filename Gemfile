@@ -8,5 +8,7 @@ gem 'neo4j'
 gem 'neo4j-core'
 gem 'haml'
 
-gem 'sinatra-contrib', require: 'sinatra/reloader'
+gem 'rake'
+gem 'yaml'
 
+gem 'sinatra-contrib', require: 'sinatra/reloader'

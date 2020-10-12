@@ -4,6 +4,8 @@
 # distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, either express or implied. require 'open3'
 
 require 'open3'
+require 'neo4j/core/cypher_session'
+require 'neo4j/core/cypher_session/adaptors/http'
 
 class ElDorado < Sinatra::Base
 
@@ -504,7 +506,8 @@ class ElDorado < Sinatra::Base
     end
 
     def neo4j
-      @neo4j ||= Neo4j::Session.open(:server_db, ENV['GRAPHDBURL']||'http://neo4j:password@localhost:7474/')
+      @neo4j ||= Neo4j::Core::CypherSession.new( Neo4j::Core::CypherSession::Adaptors::HTTP.new(ENV['GRAPHDBURL']||'http://neo4j:password@localhost:7474/') )
+      # Neo4j::Session.open(:server_db, ENV['GRAPHDBURL']||'http://neo4j:password@localhost:7474/')
     end
 
     def pipe cmd, input
