@@ -42,6 +42,19 @@ docker run --name neo4j --rm -d --publish=7474:7474 --publish=7687:7687 -e NEO4J
 
 We have upgraded to ruby 2.7.2 and latest neo4j-core, which required some changes in `el_dorado.rb` to use the `GRAPHDBURL` environment variable value via `Neo4j::Core::CypherSession` rather than `Neo4j::Session.open()`.   Future options could be to use other protocls (like bolt) - see https://github.com/neo4jrb/neo4j-core/tree/9.0.x
 
+## Tracking Sources
+When launching El Dorado for the first time it is convenient to examine familiar databases such as those built into the Neo4j web interface. Use the `Schema with Sources` canned query to see your data. By convention we attach a source property to every relation. See this work by adding a source to the sample movie data with this query:
+```
+match (p:Person)-[r]-(m:Movie)
+set r.source = 'movies'
+return r
+```
+This shows up with dotted lines to relations labeled with a count.
+
+![image](https://user-images.githubusercontent.com/12127/97227422-b1c3df00-1792-11eb-8ff4-1d26a97631ba.png)
+
+Click the counts to see a good sampling of these relations.
+
 ## License
 
 Copyright [2017] New Relic, Inc.  Licensed under the Apache License, version 2.0 (the "License"); you may not use this file except in compliance with the License.  You may obtain a copy of the License at [apache.org](http://www.apache.org/licenses/LICENSE-2.0). Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, either express or implied.
