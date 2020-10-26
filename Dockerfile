@@ -7,6 +7,8 @@ COPY Gemfile Gemfile.lock ./
 # RUN bundle config --global frozen 1
 
 RUN gem install bundler ; # && bundle update
+RUN apt-get update
+RUN apt-get -y install graphviz
 
 COPY . .
 RUN bundle install ; # --binstubs
