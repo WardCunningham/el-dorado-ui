@@ -32,6 +32,16 @@ GRAPHDBURL='http://neo4j:neo4j@example.com:7474/' bundler exec rackup -o '0.0.0.
 ~~~
 
 
+## Docker version
+Use `Dockerfile` and `build-docker-image.sh` to build a docker image.  The `run-with-neo4j.sh` runs it with a connection to a local neo4j instance.
+
+To run a local neo4j database, you can use docker:
+```
+docker run --name neo4j --rm -d --publish=7474:7474 --publish=7687:7687 -e NEO4J_AUTH=neo4j/neo4j1234 --volume=$HOME/neo4j/data:/data neo4j
+```
+
+We have upgraded to ruby 2.7.2 and latest neo4j-core, which required some changes in `el_dorado.rb` to use the `GRAPHDBURL` environment variable value via `Neo4j::Core::CypherSession` rather than `Neo4j::Session.open()`.   Future options could be to use other protocls (like bolt) - see https://github.com/neo4jrb/neo4j-core/tree/9.0.x
+
 ## License
 
-Copyright [2017] New Relic, Inc.  Licensed under the Apache License, version 2.0 (the "License"); you may not use this file except in compliance with the License.  You may obtain a copy of the License at [apache.org](http://www.apache.org/licenses/LICENSE-2.0). Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, either express or implied. 
+Copyright [2017] New Relic, Inc.  Licensed under the Apache License, version 2.0 (the "License"); you may not use this file except in compliance with the License.  You may obtain a copy of the License at [apache.org](http://www.apache.org/licenses/LICENSE-2.0). Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, either express or implied.
