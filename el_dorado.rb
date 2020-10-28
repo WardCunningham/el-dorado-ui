@@ -425,12 +425,10 @@ class ElDorado < Sinatra::Base
         link_to_url(value)
       elsif value.kind_of?(Hash)
         preserve("<pre>#{value.map{|k,v|"#{k}: #{v}"}.join("\n")}</pre>")
-      # elsif value.kind_of? Neo4j::Server::CypherNode
-        # http://www.rubydoc.info/github/neo4jrb/neo4j-core/Neo4j/Server/CypherNode
-        # preserve("<pre>#{value.props.map{|k,v|"#{k}: #{v}"}.join("\n")}</pre>")
-      # elsif value.kind_of?(Neo4j::Server::CypherRelationship)
-        # http://www.rubydoc.info/github/neo4jrb/neo4j-core/Neo4j/Server/CypherNode
-        # preserve("<pre>#{value.props.map{|k,v|"#{k}: #{v}"}.join("\n")}</pre>")
+      elsif value.kind_of? Neo4j::Core::Node
+        preserve("<pre>#{value.properties.map{|k,v|"#{k}: #{v}"}.join("\n")}</pre>")
+      elsif value.kind_of? Neo4j::Core::Relationship
+        preserve("<pre>#{value.properties.map{|k,v|"#{k}: #{v}"}.join("\n")}</pre>")
       elsif @targets && !(@targets[column].nil? || @targets[column].empty?)
         link_to_targets(value, label(@query,column), @targets[column].keys.first)
       elsif column == :Node && !row.nil? && @columns.include?(:Label)
