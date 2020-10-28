@@ -37,7 +37,7 @@ Use `Dockerfile` and `build-docker-image.sh` to build a docker image.  The `run-
 
 To run a local neo4j database, you can use docker:
 ```
-docker run --name neo4j --rm -d --publish=7474:7474 --publish=7687:7687 -e NEO4J_AUTH=neo4j/neo4j1234 --volume=$HOME/neo4j/data:/data neo4j
+docker run --name neo4j --rm -d --publish=7474:7474 --publish=7687:7687 -e NEO4J_AUTH=neo4j/neo4j1234 --volume=$HOME/neo4j/data:/data neo4j:3.5
 ```
 
 We have upgraded to ruby 2.7.2 and latest neo4j-core, which required some changes in `el_dorado.rb` to use the `GRAPHDBURL` environment variable value via `Neo4j::Core::CypherSession` rather than `Neo4j::Session.open()`.   Future options could be to use other protocls (like bolt) - see https://github.com/neo4jrb/neo4j-core/tree/9.0.x
